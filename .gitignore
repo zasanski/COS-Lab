@@ -1,12 +1,18 @@
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
+# CMake build directory
+build/
+
+# Executables directory
+bin/
+
+# IDE specific files (optional, depending on your preferences)
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
 CMakeUserPresets.json
+CMakeWorkspaceSettings.json
+
+# Operating system specific files
+.DS_Store
+Thumbs.db
