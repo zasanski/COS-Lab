@@ -16,3 +16,4 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 # Add subdirectories for each lab
 add_subdirectory(LAB1)
 add_subdirectory(LAB2)
+add_subdirectory(LAB3)
