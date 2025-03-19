@@ -31,7 +31,7 @@ configure_project() {
     create_build_dir
     echo "Running CMake configuration in $BUILD_DIR..."
     cd "$BUILD_DIR" || exit 1
-    cmake ..
+    cmake .
     cd "$SCRIPT_DIR" || exit 1
 }
 
