@@ -25,10 +25,10 @@ int main(void) {
   pid = fork();
   if (pid == -1) {
     perror("fork");
-    close(parent_to_child[0]);
-    close(parent_to_child[1]);
-    close(child_to_parent[0]);
-    close(child_to_parent[1]);
+    close(parent_to_child[0]);  // Close read end
+    close(parent_to_child[1]);  // Close write end
+    close(child_to_parent[0]);  // Close read end
+    close(child_to_parent[1]);  // Close write end
     return EXIT_FAILURE;
   }
 
@@ -56,8 +56,8 @@ int main(void) {
         break;
       }
     }
-    close(parent_to_child[0]);
-    close(child_to_parent[1]);
+    close(parent_to_child[0]);  // Close read end
+    close(child_to_parent[1]);  // Close write end
     exit(EXIT_SUCCESS);
   } else {
     // Parent process: send and receive data
@@ -83,8 +83,8 @@ int main(void) {
       printf("Parent received: %s\n", read_buffer);
     }
 
-    close(parent_to_child[1]);
-    close(child_to_parent[0]);
+    close(parent_to_child[1]);  // Close write end
+    close(child_to_parent[0]);  // Close read end
     wait(&status);
     if (!WIFEXITED(status)) {
       printf("child did not exit normally\n");

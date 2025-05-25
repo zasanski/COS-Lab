@@ -23,34 +23,34 @@ int main(void) {
   pid = fork();
   if (pid == -1) {
     perror("fork");
-    close(pipefd[0]);
-    close(pipefd[1]);
+    close(pipefd[0]);  // Close read end
+    close(pipefd[1]);  // Close write end
     return EXIT_FAILURE;
   }
 
   if (pid == 0) {
-    // Child process: read from the pipe and close the write end
-    close(pipefd[1]);
+    // Child process: read from the pipe
+    close(pipefd[1]);  // Close write end
     bytes_read = read(pipefd[0], read_buffer, BUFSIZ);
     if (bytes_read == -1) {
       perror("read");
-      close(pipefd[0]);
+      close(pipefd[0]);  // Close read end
       exit(EXIT_FAILURE);
     }
     printf("Child received: %s\n", read_buffer);
-    close(pipefd[0]);
+    close(pipefd[0]);  // Close read end
     exit(EXIT_SUCCESS);
   } else {
-    // Parent process: write to the pipe close the read end
-    close(pipefd[0]);
+    // Parent process: write to the pipe
+    close(pipefd[0]);  // Close read end
     bytes_written = write(pipefd[1], write_buffer, strlen(write_buffer) + 1);
     if (bytes_written == -1) {
       perror("write");
-      close(pipefd[1]);
+      close(pipefd[1]);  // Close write end
       return EXIT_FAILURE;
     }
     printf("Parent sent: %s\n", write_buffer);
-    close(pipefd[1]);
+    close(pipefd[1]);  // Close write end
     wait(&status);
     if (!WIFEXITED(status)) {
       printf("Child process did not terminate normally.\n");

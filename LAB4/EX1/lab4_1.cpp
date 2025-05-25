@@ -19,8 +19,8 @@ int main(void) {
   bytes_written = write(pipefd[1], write_buffer, strlen(write_buffer) + 1);  // +1 for null terminator
   if (bytes_written == -1) {
     perror("write");
-    close(pipefd[0]);
-    close(pipefd[1]);
+    close(pipefd[0]);  // Close read end
+    close(pipefd[1]);  // Close write end
     return EXIT_FAILURE;
   }
   printf("Written %d bytes to pipe.\n", bytes_written);
@@ -29,8 +29,8 @@ int main(void) {
   bytes_read = read(pipefd[0], read_buffer, BUFSIZ);
   if (bytes_read == -1) {
     perror("read");
-    close(pipefd[0]);
-    close(pipefd[1]);
+    close(pipefd[0]);  // Close read end
+    close(pipefd[1]);  // Close write end
     return EXIT_FAILURE;
   }
   printf("Read %d bytes from pipe.\n", bytes_read);
@@ -42,9 +42,8 @@ int main(void) {
     printf("Data verification failed.\n");
   }
 
-  // Close the pipe ends
-  close(pipefd[0]);
-  close(pipefd[1]);
+  close(pipefd[0]);  // Close read end
+  close(pipefd[1]);  // Close write end
 
   return 0;
 }

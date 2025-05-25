@@ -42,10 +42,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  const size_t buffer_size = BUFSIZ;
-  std::vector<char> buffer(buffer_size);
-
-  while (file_in.read(buffer.data(), buffer_size)) {
+  std::vector<char> buffer(BUFSIZ);
+  while (file_in.read(buffer.data(), BUFSIZ)) {
     file_out.write(buffer.data(), file_in.gcount());
   }
 

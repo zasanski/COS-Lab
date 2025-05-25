@@ -54,8 +54,8 @@ int main(void) {
 
       // Write sum to pipe
       write(pipes[i][1], &sum, sizeof(float));
-      close(pipes[i][1]);
-      free(array);  // free allocated memory in the child process
+      close(pipes[i][1]);  // close write end
+      free(array);         // free allocated memory in the child process
       exit(EXIT_SUCCESS);
     } else {
       // Parent process
