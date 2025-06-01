@@ -1,8 +1,13 @@
 #!/bin/bash
 
+# Exit immediately if any command fails.
+set -e
+
+# Define project directories.
 SCRIPT_DIR="$(dirname "$0")"
 BUILD_DIR="$SCRIPT_DIR/build"
 
+# Display usage information.
 usage() {
     echo "Usage: $0 <command>"
     echo "Commands:"
@@ -12,6 +17,7 @@ usage() {
     exit 1
 }
 
+# Ensure build directory exists.
 create_build_dir() {
     if [ ! -d "$BUILD_DIR" ]; then
         echo "Creating build directory: $BUILD_DIR"
@@ -19,37 +25,42 @@ create_build_dir() {
     fi
 }
 
+# Build the project.
 build_project() {
     create_build_dir
-    echo "Building the project in $BUILD_DIR..."
-    cd "$BUILD_DIR" || exit 1
+    echo "Building project in '$BUILD_DIR'..."
+    pushd "$BUILD_DIR" >/dev/null
     cmake --build .
-    cd "$SCRIPT_DIR" || exit 1
+    popd >/dev/null
+    echo "Build complete."
 }
 
+# Configure the project.
 configure_project() {
     create_build_dir
-    echo "Running CMake configuration in $BUILD_DIR..."
-    cd "$BUILD_DIR" || exit 1
-    cmake .
-    cd "$SCRIPT_DIR" || exit 1
+    echo "Configuring project in '$BUILD_DIR'..."
+    pushd "$BUILD_DIR" >/dev/null
+    cmake ..
+    popd >/dev/null
+    echo "Configuration complete."
 }
 
+# Force reconfigure the project.
 reconfigure_project() {
-    echo "Force re-configuring the project..."
+    echo "Reconfiguring project (removing '$BUILD_DIR')..."
     if [ -d "$BUILD_DIR" ]; then
-        echo "Removing existing build directory: $BUILD_DIR"
         rm -rf "$BUILD_DIR"
     fi
     configure_project
+    echo "Reconfiguration complete."
 }
 
+# Main script logic.
 if [ -z "$1" ]; then
     usage
 fi
 
 command="$1"
-
 case "$command" in
 "build")
     build_project

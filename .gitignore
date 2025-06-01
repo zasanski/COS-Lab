@@ -1,5 +1,7 @@
-# CMake build directory
+# CMake
 build/
+CMakeFiles
+Makefile
 
 # Executables directory
 bin/
