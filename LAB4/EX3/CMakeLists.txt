@@ -1,3 +1,3 @@
 # LAB4/EX3/CMakeLists.txt
 
-add_executable(lab4_3 lab4_3.cpp)
+add_executable(lab4_3 lab4_3.c)

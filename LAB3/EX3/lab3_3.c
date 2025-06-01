@@ -43,7 +43,7 @@ int main(void) {
       for (int j = start; j < end; j++) {
         sum += array[j];
       }
-      int average = (int)round((double)sum / CHUNK_SIZE);
+      int average = (int)((double)sum / CHUNK_SIZE);
       exit(average);
     }
   }
@@ -64,7 +64,7 @@ int main(void) {
     total_sum += partial_sums[i];
   }
 
-  int overall_average = (int)round((double)total_sum / NUM_CHILDREN);
+  int overall_average = (int)((double)total_sum / NUM_CHILDREN);
   printf("Overall average: %d\n", overall_average);
   free(array);
 
